@@ -41,3 +41,7 @@ scrape ff.net
   'Story': '<p>The story in html</p>
 }
 ```
+
+## Acknowledgements 
+
+[Smilli's fanfiction scraping project](https://github.com/smilli/fanfiction) provided some inspiration for this project. 
