@@ -1,8 +1,10 @@
-import undetected_chromedriver as uc
-from selenium import webdriver
 from bs4 import BeautifulSoup as Soup
-import time
+import html2text
+from selenium import webdriver
+import undetected_chromedriver as uc
 import re
+import time
+
 
 whole_story = []
 root_url = "https://fanfiction.net"
@@ -10,11 +12,11 @@ root_url = "https://fanfiction.net"
 
 def scrape_story(url):
     if __name__ == "__main__":
-        time.sleep(5)
         options = webdriver.ChromeOptions()
         options.add_argument("start-maximized")
         wd = uc.Chrome(options=options)
         wd.get(url)
+        time.sleep(5)
         try:
             html_page = wd.page_source
             soup = Soup(html_page, 'html.parser')
@@ -62,14 +64,16 @@ def get_metadata(soup, story):
         "Author URL": root_url + top_data[2].get('href'),
         "Story Data": story_data,
         "Summary": soup.find("div", class_="xcontrast_txt").text,
-        "Story": story
+        "Story": html2text.html2text(story),
+        "Raw Story": story
     }
     get_txt(metadata)
 
 
 def get_txt(metadata):
     with open(f'{metadata["Title"]} By {metadata["Author"]}.txt', 'w') as f:
-        f.write(f'{metadata}')
+        for data in metadata:
+            f.write("'{}':'{}'\n".format(data, metadata[data]))
 
 
 scrape_story('')
