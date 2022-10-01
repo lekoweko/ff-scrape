@@ -4,7 +4,7 @@ scrape ff.net
 ## How to use 
 
 1. Fork and clone the repo (or copy and paste it into an IDE if that's your thing). 
-2. Import the necessary packages. You may need to install the driver manually. 
+2. Import/install the necessary packages. You may need to install the driver manually. 
 3. In `scrape_story()` input a string of the story URL you'd like to scrape. 
 - Example 1: `scrape_story('https://www.fanfiction.net/s/<story-id>')`
 - Example 2: `scrape_story('https://www.fanfiction.net/s/<story-id>'/1/<story-title>)`
