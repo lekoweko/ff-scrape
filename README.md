@@ -11,7 +11,7 @@ scrape ff.net
 4. Run the program. The program will output as a text file. 
 
 
-## Example Output 
+## Example output 
 ```
 {
   'Fandom': 'The Great Story', 
