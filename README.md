@@ -38,7 +38,8 @@ scrape ff.net
       ' id: 000000 '
      ], 
   'Summary': "What if Terry made a wish to save April at the end of The Great Story?", 
-  'Story': '<p>The story in html</p>
+  'Story': 'My story in human readable text.', 
+  'Raw Story': '<p>My story in html-preserved text.</p>'
 }
 ```
 
