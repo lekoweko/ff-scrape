@@ -6,6 +6,16 @@ from random import randint
 import re
 import time
 
+'''
+
+Returns txt files for a page of fanfiction (one txt file per story). 
+To use, insert the page url into scrape_page. 
+Example: scrape_page('https://www.fanfiction.net/anime/<fandom title>/?&srt=1&r=10')
+Story data and text will be scraped. 
+See the read me for a full list of scraped data.
+
+'''
+
 urls = []
 whole_story = []
 root_url = "https://fanfiction.net"
@@ -87,7 +97,7 @@ def get_metadata(soup, story):
 def get_txt(metadata):
     with open(f'{metadata["Title"]} By {metadata["Author"]}.txt', 'w') as f:
         for data in metadata:
-            f.write("'{}':'{}'\n".format(data, metadata[data]))
+            f.write("{}:{}\n".format(data, metadata[data]))
 
 
 scrape_page('')
