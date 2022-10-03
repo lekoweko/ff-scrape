@@ -3,6 +3,7 @@ scrape ff.net
 
 ## How to use 
 
+For story_scraper:
 1. Fork and clone the repo (or copy and paste it into an IDE if that's your thing). 
 2. Import/install the necessary packages. You may need to install the driver manually. 
 3. In `scrape_story()` input a string of the story URL you'd like to scrape. 
@@ -12,6 +13,8 @@ scrape ff.net
 
 
 ## Example output 
+
+For story_scraper:
 ```
 {
   'Fandom': 'The Great Story', 
@@ -39,7 +42,6 @@ scrape ff.net
      ], 
   'Summary': "What if Terry made a wish to save April at the end of The Great Story?", 
   'Story': 'My story in human readable text.', 
-  'Raw Story': '<p>My story in html-preserved text.</p>'
 }
 ```
 
