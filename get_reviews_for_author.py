@@ -1,15 +1,14 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+import undetected_chromedriver as uc
 from bs4 import BeautifulSoup as Soup
 import re
 from random import randint
 import time
+import html2text
 
 '''
 
-Returns txt files for an author's reviews on fanfiction.net (one txt file per reviewed story). 
-To use, insert the author's URL(str) into scrape_author_reviews. 
+Returns txt files for an author's reviews. To use, insert the author's URL(str) into scrape_author_reviews. 
 Example: scrape_author_reviews('https://www.fanfiction.net/u/<author-id>/')
 
 Chapter: Chapter the review was left on
@@ -26,16 +25,19 @@ root_url = 'https://www.fanfiction.net'
 
 
 def scrape_author_urls(author_url):
-    wait_time = randint(2, 5)
-    time.sleep(wait_time)
-    wd = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    wd.get(author_url)
-    try:
-        html_page = wd.page_source
-        author_soup = Soup(html_page, 'html.parser')
-    finally:
-        wd.quit()
-        get_author_urls(author_soup)
+    if __name__ == "__main__":
+        options = webdriver.ChromeOptions()
+        options.add_argument("start-maximized")
+        wd = uc.Chrome(options=options)
+        wd.get(author_url)
+        wait = randint(5, 7)
+        time.sleep(wait)
+        try:
+            html_page = wd.page_source
+            author_soup = Soup(html_page, 'html.parser')
+        finally:
+            wd.quit()
+            get_author_urls(author_soup)
 
 
 def get_author_urls(author_soup):
@@ -53,16 +55,19 @@ def scrape_all_review(review_urls):
 
 
 def scrape_page(url):
-    wait_time = randint(2, 5)
-    time.sleep(wait_time)
-    wd = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    wd.get(url)
-    try:
-        html_page = wd.page_source
-        soup = Soup(html_page, 'html.parser')
-    finally:
-        wd.quit()
-        get_reviews(soup)
+    if __name__ == "__main__":
+        options = webdriver.ChromeOptions()
+        options.add_argument("start-maximized")
+        wd = uc.Chrome(options=options)
+        wd.get(url)
+        wait = randint(5, 7)
+        time.sleep(wait)
+        try:
+            html_page = wd.page_source
+            soup = Soup(html_page, 'html.parser')
+        finally:
+            wd.quit()
+            get_reviews(soup)
 
 
 # get reviews
@@ -83,7 +88,7 @@ def get_reviews(soup):
             'date': chapter_and_date.split('.')[1],
             'user_name': user_name,
             'user_id': user_id,
-            'text': review_td.div.text.encode('utf8')
+            'text': html2text.html2text(review_td.div.text)
         }
         reviews.append(review)
     center = soup.find('center')
@@ -117,9 +122,5 @@ def scrape_author_reviews(author_url):
 
 
 scrape_author_reviews('')
-
-
-
-
 
 
